@@ -1,0 +1,26 @@
+.header {
+    display: flex;
+    align-items: center;
+    background-color: #393F50;
+    padding: 25px;
+}
+
+.header span {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+.header span svg {
+    color: #2EA9F3;
+    font-size: 20px;
+}
+
+.header h1 {
+    color: #fff;
+    margin: 0 0 0 15px;
+}

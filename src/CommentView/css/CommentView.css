@@ -1,0 +1,21 @@
+.tags {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+.tags span {
+    border: 1px solid #323A41;
+    font-size: 10px;
+    text-align: center;
+    padding: 1px 30px;
+    border-radius: 10px;
+    font-weight: 600;
+    color: #323A41;
+    background-color: #fff;
+    margin-right: 15px;
+    cursor: pointer;
+}
+.tags span.active {
+    background-color: #323A41;
+    color: #fff;
+}
