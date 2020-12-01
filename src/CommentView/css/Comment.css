@@ -1,0 +1,66 @@
+.comment {
+    border: 1px solid #323A41;
+    width: 100%;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+.comment.positive {
+    background-color: #E8F5FD;
+}
+.comment.negative {
+    background-color: #FFF2F8;
+}
+.comment.neutral {
+    background-color: #fff;
+}
+.comment .comment-header {
+    border-bottom: 1px solid #323A41;
+    padding: 15px;
+    position: relative;
+}
+.comment .comment-header span {
+    border: 1px solid #323A41;
+    font-size: 10px;
+    text-align: center;
+    padding: 1px 30px;
+    border-radius: 10px;
+    font-weight: 600;
+    background-color: #fff;
+    position: absolute;
+    bottom: -9px;
+}
+.comment .comment-header i {
+    display: flex;
+    color: #fff;
+    border-radius: 50%;
+    padding: 2px;
+    position: absolute;
+    bottom: -10px;
+    right: 15px;
+}
+.comment .comment-body {
+    padding: 25px 15px 15px 15px;
+}
+.comment p {
+    color: #5A656F;
+    font-weight: 600;
+    font-size: 14px;
+}
+.comment.positive .comment-header span {
+    color: #2EA9F3;
+}
+.comment.negative .comment-header span {
+    color: #FF2674;
+}
+.comment.neutral .comment-header span {
+    color: #323A41;
+}
+.comment.positive .comment-header i {
+    background-color: #2EA9F3;
+}
+.comment.negative .comment-header i {
+    background-color: #FF2674;
+}
+.comment.neutral .comment-header i {
+    background-color: #323A41;
+}

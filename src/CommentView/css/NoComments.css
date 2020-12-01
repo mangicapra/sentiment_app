@@ -1,0 +1,19 @@
+.noComment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 40px;
+    width: 195px;
+}
+.noComment svg {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    color: #E4E8F3;
+}
+.noComment p {
+    text-align: center;
+    color: #889098;
+    margin: 0;
+}
