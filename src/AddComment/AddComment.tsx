@@ -5,6 +5,7 @@ import { IContextProps, SentenceContext } from "../SentenceProvider";
 import './AddComment.css';
 import axios, { AxiosRequestConfig } from 'axios';
 import { Sentence } from "../models/SentimentRequest";
+import CSVReader from "react-csv-reader";
 
 const API_BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
@@ -14,6 +15,22 @@ class AddComment extends Component<{}, AddCommentState> {
         value: '',
         sentences: []
     };
+
+    papaparseOptions = {
+        dynamicTyping: true,
+        skipEmptyLines: true,
+        transformHeader: (header: any) => header.toLowerCase().replace(/\W/g, "_")
+      };
+
+    componentDidMount() {
+        const sentiments = JSON.parse(localStorage.getItem('sentiments') as string) as AddCommentState;
+        if (sentiments) {
+            this.setState({
+                value: sentiments.value,
+                sentences: this.transformData(sentiments.sentences)
+            }, () => this.context.setSentences(this.state.sentences))
+        }
+    }
 
     async getSentiments(data: string) {
         const axiosConfig: AxiosRequestConfig = {
@@ -46,7 +63,12 @@ class AddComment extends Component<{}, AddCommentState> {
 
     async handleSubmit(event: any, ctx: IContextProps) {
         event.preventDefault();
+        console.log(this.state.value)
         const response = await this.getSentiments(this.state.value);
+        localStorage.setItem('sentiments', JSON.stringify({
+            value: this.state.value,
+            sentences: response.data.sentences
+        }));
         this.setState({
             sentences: this.transformData(response.data.sentences)
         }, () => {
@@ -54,13 +76,9 @@ class AddComment extends Component<{}, AddCommentState> {
         });
     }
 
-    handleFileUpload(event: ChangeEvent<HTMLInputElement>): void {
-        const file = (event.target.files as FileList)[0];
-        const reader = new FileReader();
-        reader.onload = (evt) => {
-            this.setState({value: reader.result as string})
-        }
-        reader.readAsText(file);
+    handleImport(data: any) {
+        const importedSentences = data.map((el: string[]) => `"${el[0]}","${el[1]}"\n`);
+        this.setState({value: this.state.value.concat(...importedSentences)});
     }
 
     render() {
@@ -72,12 +90,10 @@ class AddComment extends Component<{}, AddCommentState> {
                     <h4>Import comments and feedback</h4>
                     <label htmlFor="importComments">
                         <span><HiOutlineArrowDown /></span> Import comments
-                        <input
-                            id="importComments"
-                            type="file"
-                            accept=".csv,.xlsx,.xls"
-                            onChange={this.handleFileUpload.bind(this)}
-                        />
+                            <CSVReader
+                                onFileLoaded={this.handleImport.bind(this)}
+                                parserOptions={this.papaparseOptions}
+                            />
                     </label>
                 </div>
                 <textarea
@@ -94,5 +110,7 @@ class AddComment extends Component<{}, AddCommentState> {
       );
     }
   }
-  
+
+AddComment.contextType = SentenceContext;  
+
 export default AddComment;
